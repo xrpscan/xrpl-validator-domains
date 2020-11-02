@@ -40,26 +40,29 @@ function parseManifest(manifest) {
 /**
  * Verify a parsed manifest
  * 
- * @param manifest manifest 
+ * @param manifest a manifest object
  */
 function verifyManifestSignature(manifest) {
     const s = manifest['MasterSignature'] ? manifest['MasterSignature'] : manifest['Signature']
-    const signature = Buffer.from(s,'hex').toJSON().data
+    const signature = Buffer.from(s, 'hex').toJSON().data
 
-    const signed = manifest
+    const signed = Object.assign({}, manifest)
     delete signed['MasterSignature']
     delete signed['Signature']
 
     if(signed['Domain'])
         signed['Domain'] = Buffer.from(signed['Domain']).toString('hex')
+
     if(signed['PublicKey'])
         signed['PublicKey'] = decodeNodePublic(signed['PublicKey']).toString('hex')
+
     if(signed['SigningPubKey'])
         signed['SigningPubKey'] = decodeNodePublic(signed['SigningPubKey']).toString('hex')
         
     const signed_bytes = encode(signed)
 
-    const data = Buffer.concat([Buffer.from("MAN\0"), Buffer.from(signed_bytes, 'hex')]).toJSON().data
+    const manifestPrefix = Buffer.from("MAN\0")
+    const data = Buffer.concat([manifestPrefix, Buffer.from(signed_bytes, 'hex')]).toJSON().data
     const key = Buffer.from(signed['PublicKey'], 'hex').toJSON().data
 
     key.shift()
