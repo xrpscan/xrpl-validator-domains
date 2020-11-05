@@ -1,11 +1,10 @@
-const { fetchToml } = require('../src/network.js')
-const toml = require('toml')
-const chai = require('chai')
+import { expect } from 'chai'
+import * as toml from 'toml'
 
-const expect = chai.expect
+import { fetchToml } from '../src/network'
 
 const expected = toml.parse(
-    `[METADATA]
+  `[METADATA]
     modified = 2020-02-27T05:17:00.000Z
 
     [[VALIDATORS]]
@@ -29,11 +28,11 @@ const expected = toml.parse(
     [[SERVERS]]
     peer = "hub.rabbitkick.club"
     network = "main"
-    port = 51235`
+    port = 51235`,
 )
 
-describe("Fetches TOML from URL", () => {
-    it("rabbitkick.club", async () => {
-        expect(await fetchToml('rabbitkick.club')).to.eql(expected)
-    })
+describe('Fetches TOML from URL', function () {
+  it('rabbitkick.club', async function () {
+    expect(await fetchToml('rabbitkick.club')).to.eql(expected)
+  })
 })
