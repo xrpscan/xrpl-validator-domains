@@ -1,4 +1,4 @@
-const { encodeNodePublic } = require('ripple-address-codec')
+import { encodeNodePublic } from 'ripple-address-codec'
 
 import {
   Manifest,
