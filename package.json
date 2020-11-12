@@ -1,0 +1,24 @@
+{
+  "name": "xrpl-validator-domains",
+  "version": "0.1.0",
+  "description": "Decentralized domain verification for the XRP Ledger",
+  "main": "index.ts",
+  "author": "Nathan Nichols",
+  "type": "commonjs",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "ripple-address-codec": "^4.1.1",
+    "ripple-binary-codec": "^1.0.2",
+    "ripple-keypairs": "^1.0.2",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "nock": "^13.0.4",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.0"
+  }
+}
