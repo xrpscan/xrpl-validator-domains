@@ -1,10 +1,8 @@
-import * as elliptic from 'elliptic'
 import { decodeNodePublic, encodeNodePublic } from 'ripple-address-codec'
 import { encode, decode } from 'ripple-binary-codec'
+import { verify } from 'ripple-keypairs'
 
-const Ed25519 = new elliptic.eddsa('ed25519')
-
-export interface Manifest {
+export interface ManifestNew {
   PublicKey: string
   MasterSignature: string
   Sequence: number
@@ -13,7 +11,28 @@ export interface Manifest {
   Signature?: string
 }
 
-function isManifest(param: any): param is Manifest {
+export interface ManifestOld {
+  master_key: string,
+  master_signature: string,
+  seq: number,
+  domain?: string
+  signing_key?: string
+  signature?: string
+}
+
+interface SigningManifest {
+  PublicKey: string
+  MasterSignature?: string
+  Sequence: number
+  Domain?: string
+  SigningPubKey?: string
+  Signature?: string
+}
+
+/**
+ * @param param tests if a parameter is a Manifest
+ */
+export function isManifestNew(param: any): param is ManifestNew {
   if(typeof param !== "object")
     return false
 
@@ -23,86 +42,91 @@ function isManifest(param: any): param is Manifest {
 }
 
 /**
- * Parse a manifest.
+ * Parse a manifest
  *
- * @param binary - Hex-string of an encoded manifest.
- * @param manifest
+ * @param binary hex-string of an encoded manifest
  */
-function parseManifest(manifest: string): Manifest | null {
-  let parsed
+function parseManifest(manifest: string): ManifestNew {
+  let parsed;
   try {
-    parsed = decode(manifest)
-  } catch (e) {
-    return null
+      parsed = decode(manifest)
+  }
+  catch(e) {
+      throw new Error(`Error Decoding Manifest: ${e}`)
   }
 
-  if(!isManifest(parsed)) {
-    return null
+  if(!isManifestNew(parsed))
+    throw new Error(`Decoded Manifest of unknown form`)
+
+  const result: ManifestNew = {
+      Sequence: parsed['Sequence'],
+      Signature: parsed['Signature'],
+      MasterSignature: parsed['MasterSignature'],
+      PublicKey: encodeNodePublic(Buffer.from(parsed['PublicKey'], 'hex'))
   }
 
-  const result : Manifest = {
-    Sequence: parsed.Sequence,
-    Signature: parsed.Signature,
-    MasterSignature: parsed.MasterSignature,
-    PublicKey: encodeNodePublic(Buffer.from(parsed.PublicKey, 'hex'))
-  }
+  if(parsed['Domain'])
+      result['Domain'] = Buffer.from(parsed['Domain'], 'hex').toString()
 
-  if (parsed.Domain) {
-    result.Domain = Buffer.from(parsed.Domain, 'hex').toString()
-  }
-
-  if (parsed.SigningPubKey) {
-    result.SigningPubKey = encodeNodePublic(
-      Buffer.from(parsed.SigningPubKey, 'hex'),
-    )
-  }
+  if(parsed['SigningPubKey'])
+      result['SigningPubKey'] = encodeNodePublic(Buffer.from(parsed['SigningPubKey'], 'hex'))
 
   return result
 }
 
-interface SigningManifest {
-  PublicKey: string
-  MasterSignature: undefined
-  Sequence: number
-  Domain?: string
-  SigningPubKey?: string
-  Signature: undefined
-}
-
 /**
- * Verify a parsed manifest.
- *
- * @param manifest - A manifest object.
+ * Verify a parsed manifest
+ * 
+ * @param manifest a manifest object
  */
-function verifyManifestSignature(manifest: Manifest): boolean {
-  const signature = Buffer.from(manifest.MasterSignature, 'hex').toString('hex')
-
-  const signed: SigningManifest = Object.assign({}, manifest,
-                                    { MasterSignature: undefined,
-                                    Signature: undefined,
-                                    PublicKey: decodeNodePublic(manifest.PublicKey).toString('hex') })
-
-  if (signed.Domain) {
-    signed.Domain = Buffer.from(signed.Domain).toString('hex')
+function verifyManifestSignature(manifest: string | ManifestOld | ManifestNew | undefined): boolean {
+  if(typeof manifest === "string") {
+      manifest = parseManifest(manifest)
   }
 
-  if (signed.SigningPubKey) {
-    signed.SigningPubKey = decodeNodePublic(signed.SigningPubKey).toString(
-      'hex',
-    )
+  if(manifest === undefined)
+    throw new Error("parseManifest failed to parse given string")
+
+  let signed: SigningManifest;
+  let signature: string | undefined;
+  if(isManifestNew(manifest)) {
+    signed = Object.assign({}, manifest) 
+
+    const sig = manifest['MasterSignature'] || manifest['Signature']
+    signature = sig && Buffer.from(sig, 'hex').toString('hex')
+    delete signed['MasterSignature']
+    delete signed['Signature']
+  }
+  else {
+    signed = {
+        Domain: manifest["domain"],
+        PublicKey: manifest["master_key"],
+        SigningPubKey: manifest["signing_key"],
+        Sequence: manifest['seq'],
+    }
+    const sig = manifest['master_signature'] || manifest['signature']
+    signature = sig && Buffer.from(sig, 'hex').toString('hex')
   }
 
+  if(signature === undefined)
+    throw new Error("No signature was provided")  
+
+  if(signed['Domain'])
+      signed['Domain'] = Buffer.from(signed['Domain']).toString('hex')
+
+  if(signed['PublicKey'])
+      signed['PublicKey'] = decodeNodePublic(signed['PublicKey']).toString('hex')
+
+  if(signed['SigningPubKey'])
+      signed['SigningPubKey'] = decodeNodePublic(signed['SigningPubKey']).toString('hex')
+      
   const signed_bytes = encode(signed)
 
-  const manifestPrefix = Buffer.from('MAN\0')
-  const data = Buffer.concat([
-    manifestPrefix,
-    Buffer.from(signed_bytes, 'hex'),
-  ]).toString('hex')
+  const manifestPrefix = Buffer.from("MAN\0")
+  const data = Buffer.concat([manifestPrefix, Buffer.from(signed_bytes, 'hex')]).toString('hex')
+  const key = Buffer.from(signed['PublicKey'], 'hex').toString('hex')
 
-  const key = Buffer.from(signed.PublicKey, 'hex').slice(1).toString('hex')
-
-  return Ed25519.verify(data, signature, key) as boolean
+  return verify(data, signature, key)
 }
 
 export {

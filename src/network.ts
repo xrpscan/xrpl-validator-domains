@@ -1,5 +1,5 @@
-const axios = require('axios')
-const toml = require('toml')
+import axios from 'axios'
+import toml from 'toml'
 
 const TOML_PATH = '/.well-known/xrp-ledger.toml'
 
@@ -8,7 +8,7 @@ interface Response {
 }
 
 /**
- * @param domain
+ * @param domain to fetch the .toml file from
  */
 async function fetchToml(domain: string) {
   const url = `https://${domain}${TOML_PATH}`
