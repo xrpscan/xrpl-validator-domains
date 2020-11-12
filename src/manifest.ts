@@ -88,25 +88,25 @@ function verifyManifestSignature(manifest: string | ManifestOld | ManifestNew | 
     throw new Error("parseManifest failed to parse given string")
 
   let signed: SigningManifest;
-  let signature: string | undefined;
+  
   if(isManifestNew(manifest)) {
-    signed = Object.assign({}, manifest) 
-
-    const sig = manifest['MasterSignature'] || manifest['Signature']
-    signature = sig && Buffer.from(sig, 'hex').toString('hex')
-    delete signed['MasterSignature']
-    delete signed['Signature']
+    signed = Object.assign({}, manifest)     
   }
   else {
     signed = {
-        Domain: manifest["domain"],
-        PublicKey: manifest["master_key"],
-        SigningPubKey: manifest["signing_key"],
+        Domain: manifest['domain'],
+        PublicKey: manifest['master_key'],
+        SigningPubKey: manifest['signing_key'],
         Sequence: manifest['seq'],
+        MasterSignature: manifest['master_signature'],
+        Signature: manifest['signature']
     }
-    const sig = manifest['master_signature'] || manifest['signature']
-    signature = sig && Buffer.from(sig, 'hex').toString('hex')
   }
+
+  const sig = signed['MasterSignature'] || signed['Signature']
+  const signature = sig && Buffer.from(sig, 'hex').toString('hex')
+  delete signed['MasterSignature']
+  delete signed['Signature']
 
   if(signature === undefined)
     throw new Error("No signature was provided")  
