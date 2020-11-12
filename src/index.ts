@@ -89,4 +89,5 @@ async function verifyValidatorDomain(manifest: string | ManifestOld | ManifestNe
 
 export {
   verifyValidatorDomain,
+  verifyManifestSignature
 }
