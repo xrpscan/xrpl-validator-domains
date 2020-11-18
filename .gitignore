@@ -1,3 +1,5 @@
+# https://github.com/github/gitignore/blob/master/Node.gitignore
+
 # Logs
 logs
 *.log
@@ -46,6 +48,7 @@ web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
+build/
 
 # Optional npm cache directory
 .npm

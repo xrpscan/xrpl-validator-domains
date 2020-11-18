@@ -6,7 +6,7 @@ Verify validator domains in accordance with [domain verification](https://xrpl.o
 
 ## API
 ```js
-> const { verifyValidatorDomain, verifyManifestSignature } = require('xrpl-validator-domains')
+import { verifyValidatorDomain, verifyManifestSignature } from 'xrpl-validator-domains'
 ```
 
 ### verifyValidatorDomain(manifest)

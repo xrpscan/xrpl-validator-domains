@@ -1,4 +1,4 @@
-let manifests = [
+[
     {
         "master_key": "nHUeUNSn3zce2xQZWNghQvd9WRH6FWEnCBKYVJu2vAizMxnXegfJ",
         "master_signature": "525D17DCDDB94128ED1E5277B0CFB8AF068D4C37B645A97D1C0BCDB9B9E4D7EDC42DBF41319F1B89AA6E89FE45AE0C028C8F1495A6CE626761FF5E708742FA08",
@@ -64,7 +64,3 @@ let manifests = [
         "type": "manifestReceived"
     }
 ]
-
-module.exports = {
-    manifests
-}
