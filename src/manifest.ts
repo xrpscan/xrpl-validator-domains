@@ -48,7 +48,12 @@ function verifyManifestSignature(manifest: string | ManifestRPC | ManifestParsed
   const data = Buffer.concat([manifestPrefix, Buffer.from(signed_bytes, 'hex')]).toString('hex')
   const key = Buffer.from(signed['PublicKey'], 'hex').toString('hex')
 
-  return verify(data, signature, key)
+  try {
+    return verify(data, signature, key)
+  }
+  catch {
+    return false
+  }
 }
 
 export {

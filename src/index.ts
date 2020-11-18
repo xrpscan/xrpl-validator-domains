@@ -56,12 +56,19 @@ async function verifyValidatorDomain(manifest: string | ManifestParsed | Manifes
     for (const validator of validators) {
         const attestation = Buffer.from(validator.attestation, 'hex').toString('hex')
         
-        if(!verify(message_bytes, attestation, decodedPubKey)) {
-            return {
-                status: "error",
-                message: `Invalid attestation, cannot verify ${domain}`,
-                manifest: normalizedManifest
+        const failedToVerify = {
+            status: "error",
+            message: `Invalid attestation, cannot verify ${domain}`,
+            manifest: normalizedManifest
+        }
+        
+        try {
+            if(!verify(message_bytes, attestation, decodedPubKey)) {
+                return failedToVerify
             }
+        }
+        catch {
+            return failedToVerify
         }
     }
 

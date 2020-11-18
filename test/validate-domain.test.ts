@@ -3,6 +3,9 @@ import { expect } from 'chai'
 import nock from 'nock'
 import rabbitKickResponse from './fixtures/rabbitkick.json'
 import payIdMayurResponse from './fixtures/payid-mayur.json'
+import invalidToml from './fixtures/invalid-toml.json'
+import noKey from './fixtures/toml-no-matching-pubkey.json'
+import invalidAttestation from './fixtures/invalid-toml-signature.json'
 
 const rabbitKickManifiest = "240000007B7121EDA54C85F91219FD259134B6B126AD64AE7204B81DD4052510657E1A5697246AD27321032F7ACF6D67C42C9C898F576F92FE4638EB6C88D0DC7F6710AF00ED6BF50D97D676473045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285770F7261626269746B69636B2E636C7562701240C4FF2A6D277D24DEFB1C1EDF67285171EA02DC035FEF6216DEE41019CE41611AD4430AF59938DC505E538CCF669D521AC2A456C3805FE3CA85BB10B2A691B50B"
 const rabbitKickParsed = {
@@ -162,6 +165,58 @@ describe("Verifies domains", () => {
             status: 'error',
             message: 'Manifest does not contain a domain',
             manifest: noDomainResponseManifest
+        })
+    })
+
+    it("invalid signature", async () => {
+        const invalid = Object.assign({}, rabbitKickParsed, { MasterSignature: "11223344556677889900aabbccddeeff" })
+        expect(await verifyValidatorDomain(invalid)).to.eql({
+            status: 'error',
+            message: 'Cannot verify manifest signature',
+            manifest: {
+                "domain": "rabbitkick.club",
+                "ephemeral_key": "n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1",
+                "master_key": "nHUcNC5ni7XjVYfCMe38Rm3KQaq27jw7wJpcUYdo4miWwpNePRTw",
+                "master_signature": "11223344556677889900aabbccddeeff",
+                "seq": 123,
+                "signature": "3045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285"
+            }
+        })
+    })
+
+    it("Invalid TOML file", async () => {
+        nock('https://payid.mayurbhandary.com')
+            .get('/.well-known/xrp-ledger.toml')
+            .reply(200, invalidToml.response);
+
+        expect(await verifyValidatorDomain(mayursManifest)).to.eql({
+            status: 'error',
+            message: "Invalid .toml file",
+            manifest: mayursManifestResponse
+        })
+    })
+
+    it("No matching public key in TOML file", async () => {
+        nock('https://payid.mayurbhandary.com')
+            .get('/.well-known/xrp-ledger.toml')
+            .reply(200, noKey.response);
+
+        expect(await verifyValidatorDomain(mayursManifest)).to.eql({
+            status: 'error',
+            message: ".toml file does not have matching public key",
+            manifest: mayursManifestResponse
+        })
+    })
+
+    it("Invalid attestation fails", async () => {
+        nock('https://payid.mayurbhandary.com')
+            .get('/.well-known/xrp-ledger.toml')
+            .reply(200, invalidAttestation.response);
+
+        expect(await verifyValidatorDomain(mayursManifest)).to.eql({
+            status: "error",
+            message: "Invalid attestation, cannot verify payid.mayurbhandary.com",
+            manifest: mayursManifestResponse
         })
     })
 })

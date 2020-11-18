@@ -7,13 +7,12 @@
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
-    "test": "mocha -r ts-node/register test/*.test.ts",
+    "test": "nyc mocha -r ts-node/register test/*.test.ts",
     "lint": "eslint . --ext .js --max-warnings 0",
     "build": "yarn lint && tsc --build tsconfig.build.json"
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "node-ts": "^5.1.1",
     "ripple-address-codec": "^4.1.1",
     "ripple-binary-codec": "^1.0.2",
     "ripple-keypairs": "^1.0.2",
@@ -21,6 +20,7 @@
   },
   "devDependencies": {
     "@fintechstudios/eslint-plugin-chai-as-promised": "^3.0.2",
+    "nyc": "^15.1.0",
     "@types/chai": "^4.2.14",
     "@types/elliptic": "^6.4.12",
     "@types/mocha": "^8.0.3",
@@ -29,6 +29,7 @@
     "@xpring-eng/eslint-config-base": "^0.10.0",
     "chai": "^4.2.0",
     "eslint": "^7.7.0",
+    "ts-node": "^9.0.0",
     "eslint-plugin-array-func": "^3.1.6",
     "eslint-plugin-disable": "^2.0.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
