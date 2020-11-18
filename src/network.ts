@@ -8,10 +8,7 @@ interface Response {
 }
 
 /**
-<<<<<<< HEAD
-=======
  * Fetch .toml file from manifest domain
->>>>>>> master
  * @param domain to fetch the .toml file from
  */
 async function fetchToml(domain: string) {
