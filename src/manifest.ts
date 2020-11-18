@@ -1,7 +1,7 @@
 import { decodeNodePublic } from 'ripple-address-codec'
 import { encode } from 'ripple-binary-codec'
 import { verify } from 'ripple-keypairs'
-import { ManifestParsed, ManifestRPC, normalizeManifest } from './normalizeManifest'
+import { Manifest, ManifestParsed, ManifestRPC, normalizeManifest } from './normalizeManifest'
 
 interface SigningManifest {
   PublicKey: string
@@ -13,11 +13,10 @@ interface SigningManifest {
 }
 
 /**
- * Verify a parsed manifest
- * 
+ * Verify a parsed manifest signature
  * @param manifest a manifest object
  */
-function verifyManifestSignature(manifest: string | ManifestRPC | ManifestParsed): boolean {
+function verifyManifestSignature(manifest: string | ManifestRPC | ManifestParsed | Manifest): boolean {
   const m = normalizeManifest(manifest)
 
   const sig = m['master_signature'] || m['signature']

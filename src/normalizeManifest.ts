@@ -28,7 +28,10 @@ export interface ManifestRPC {
     signature?: string
 }
 
-export function isNormalizedManifest(param: any): param is Manifest {
+/**
+ * Check that the parameter is a valid Manifest object.
+ */
+export function isManifest(param: any): param is Manifest {
     if(typeof param !== "object")
       return false
 
@@ -45,7 +48,7 @@ export function isNormalizedManifest(param: any): param is Manifest {
 }
 
 /**
- * @param param tests if a parameter is a Manifest in ManifestParsed format
+ * Check that the parameter is a valid ManifestParsed object.
  */
 export function isManifestParsed(param: any): param is ManifestParsed {
     if(typeof param !== "object")
@@ -64,9 +67,27 @@ export function isManifestParsed(param: any): param is ManifestParsed {
 }
 
 /**
- * Parse a manifest
- *
- * @param binary hex-string of an encoded manifest
+ * Check that the parameter is a valid ManifestRPC object.
+ */
+export function isManifestRPC(param: any): param is ManifestRPC {
+    if(typeof param !== "object")
+      return false
+
+    const expected_keys = ["seq", "master_key", "master_signature", "domain", "signing_key", "signature", "type"]
+    const extra_keys = Object.keys(param).filter(key => !expected_keys.includes(key))
+
+    return (extra_keys.length === 0
+      && typeof param.seq === "number"
+      && typeof param.master_key === "string"
+      && typeof param.master_signature === "string"
+      && (param.domain === undefined || typeof param.domain === 'string')
+      && (param.signing_key === undefined || typeof param.signing_key === 'string')
+      && (param.signature === undefined || typeof param.signature === 'string'))
+}
+
+/**
+ * Parses a hex-string encoded manifest
+ * @param binary hex-string representing a manifest
  */
 function manifestFromHex(manifest: string): ManifestParsed {
     let parsed;
@@ -99,31 +120,11 @@ function manifestFromHex(manifest: string): ManifestParsed {
 }
 
 /**
- * @param manifest tests if a parameter is a Manifest in ManifestRPC format
- */
-export function isManifestRPC(param: any): param is ManifestRPC {
-    if(typeof param !== "object")
-      return false
-
-    const expected_keys = ["seq", "master_key", "master_signature", "domain", "signing_key", "signature", "type"]
-    const extra_keys = Object.keys(param).filter(key => !expected_keys.includes(key))
-
-    return (extra_keys.length === 0
-      && typeof param.seq === "number"
-      && typeof param.master_key === "string"
-      && typeof param.master_signature === "string"
-      && (param.domain === undefined || typeof param.domain === 'string')
-      && (param.signing_key === undefined || typeof param.signing_key === 'string')
-      && (param.signature === undefined || typeof param.signature === 'string'))
-}
-
-/**
- * Parse a manifest
- *
- * @param binary hex-string of an encoded manifest
+ * Normalizes a manifest to a Manifest object
+ * @param binary hex-string, ManifestRPC, or ManifestParsed representation of a manifest
  */
 function normalizeManifest(manifest: string | ManifestParsed | ManifestRPC | Manifest ): Manifest {
-    if(isNormalizedManifest(manifest))
+    if(isManifest(manifest))
         return manifest
 
     let parsed;

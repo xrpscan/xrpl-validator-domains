@@ -11,7 +11,8 @@ interface Validator {
 }
 
 /**
- * @param manifest
+ * Verifies the signature and domain associated with a manifest
+ * @param manifest - The signed manifest that contains the validator's domain
  */
 async function verifyValidatorDomain(manifest: string | ManifestParsed | ManifestRPC) {
     let normalizedManifest = normalizeManifest(manifest)
@@ -61,7 +62,7 @@ async function verifyValidatorDomain(manifest: string | ManifestParsed | Manifes
             message: `Invalid attestation, cannot verify ${domain}`,
             manifest: normalizedManifest
         }
-        
+
         try {
             if(!verify(message_bytes, attestation, decodedPubKey)) {
                 return failedToVerify
