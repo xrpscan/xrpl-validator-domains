@@ -2,7 +2,7 @@
   "name": "xrpl-validator-domains",
   "version": "0.1.0",
   "description": "Decentralized domain verification for the XRP Ledger",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "author": "Nathan Nichols",
   "type": "commonjs",
   "license": "MIT",
