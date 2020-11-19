@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "node-ts": "^5.1.1",
     "ripple-address-codec": "^4.1.1",
     "ripple-binary-codec": "^1.0.2",
     "ripple-keypairs": "^1.0.2",
