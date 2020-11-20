@@ -13,8 +13,7 @@ import { verifyValidatorDomain, verifyManifestSignature } from 'xrpl-validator-d
 #### Browser 
 ```html
 <script type="text/javascript" src="https://unpkg.com/xrpl-validator-domains@0.1.0/build/ripple-latest-min.js"></script>
-window.ripple.verifyValidatorDomain(...)
-window.ripple.verifyManifestSignature(...)
+<script> const {verifyManifestSignature, verifyValidatorDomain} = window.ripple </script>
 ```
 
 ### verifyValidatorDomain(manifest)
