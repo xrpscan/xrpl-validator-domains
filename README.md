@@ -5,8 +5,16 @@ Verify validator domains in accordance with [domain verification](https://xrpl.o
 `verifyValidatorDomain` verifies manifest signatures and domains.
 
 ## API
+#### NodeJS
 ```js
 import { verifyValidatorDomain, verifyManifestSignature } from 'xrpl-validator-domains'
+```
+
+#### Browser 
+```html
+<script type="text/javascript" src="https://unpkg.com/xrpl-validator-domains@0.1.0/build/ripple-latest-min.js"></script>
+window.ripple.verifyValidatorDomain(...)
+window.ripple.verifyManifestSignature(...)
 ```
 
 ### verifyValidatorDomain(manifest)
