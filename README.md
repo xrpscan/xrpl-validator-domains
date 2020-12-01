@@ -14,7 +14,7 @@ Parse and verify a hex-string manifest. Works with the following manifest format
 ```js
 > await verifyValidatorDomain("240000007B7121EDA54C85F91219FD259134B6B126AD64AE7204B81DD4052510657E1A5697246AD27321032F7ACF6D67C42C9C898F576F92FE4638EB6C88D0DC7F6710AF00ED6BF50D97D676473045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285770F7261626269746B69636B2E636C7562701240C4FF2A6D277D24DEFB1C1EDF67285171EA02DC035FEF6216DEE41019CE41611AD4430AF59938DC505E538CCF669D521AC2A456C3805FE3CA85BB10B2A691B50B")
 > {
-  status: 'success',
+  verified: true,
   message: 'rabbitkick.club has been verified',
   manifest: {
     Sequence: 123,
@@ -37,7 +37,7 @@ Parse and verify a hex-string manifest. Works with the following manifest format
     SigningPubKey: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1'
   })
 > {
-  status: 'success',
+  verified: true,
   message: 'rabbitkick.club has been verified',
   manifest: {
     Sequence: 123,
@@ -60,7 +60,7 @@ Parse and verify a hex-string manifest. Works with the following manifest format
     master_signature: "1234567890ABCDEF"
 })
 > {
-  status: 'error',
+  verified: false,
   message: 'Cannot verify manifest signature',
   manifest: {
     seq: 2,
@@ -102,4 +102,10 @@ Verify a manifest signature. Works with the following manifest formats.
   signing_key: "n9K7fyu8uvmCoWvW4ZQVCWgW2zrz7sh33Ao7ceNkL7iQGDYtuwTU"
 })
 > true
+```
+
+#### Testing
+After installing, run
+```
+  yarn test
 ```

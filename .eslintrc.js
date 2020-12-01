@@ -1,3 +1,5 @@
+const COMPLEXITY = 15
+
 module.exports = {
   root: true,
 
@@ -44,7 +46,7 @@ module.exports = {
     'max-lines-per-function': [
       'warn',
       {
-        max: 50,
+        max: 75,
         skipBlankLines: true,
         skipComments: true,
       },
@@ -57,6 +59,12 @@ module.exports = {
         skipComments: true,
       },
     ],
+
+    // Multiple manifest formats means naming conventions vary
+    '@typescript-eslint/naming-convention': 'off',
+
+    // Up complexity for type guards, which check many conditions
+    complexity: ['error', COMPLEXITY],
   },
   overrides: [
     {
@@ -84,6 +92,9 @@ module.exports = {
       rules: {
         // For our test files, the pattern has been to have unnamed functions
         'func-names': 'off',
+
+        // Allow magic numbers for testing
+        '@typescript-eslint/no-magic-numbers': 'off',
       },
       settings: {
         'disable/plugins': ['mocha'],

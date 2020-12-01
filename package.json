@@ -7,10 +7,10 @@
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
-    "prepare": "yarn build",
-    "test": "mocha -r ts-node/register test/*.test.ts",
-    "lint": "eslint . --ext .js --max-warnings 0",
-    "build": "yarn lint && tsc --build tsconfig.build.json"
+    "prepare": "yarn lint && yarn build",
+    "test": "nyc mocha -r ts-node/register test/*.test.ts",
+    "lint": "eslint . --ext .ts --max-warnings 0 && eslint .eslintrc.js --max-warnings 0",
+    "build": "tsc --build tsconfig.build.json"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -28,7 +28,9 @@
     "@typescript-eslint/parser": "^3.9.1",
     "@xpring-eng/eslint-config-base": "^0.10.0",
     "chai": "^4.2.0",
+    "nyc": "^15.1.0",
     "eslint": "^7.7.0",
+    "ts-node": "^9.0.0",
     "eslint-plugin-array-func": "^3.1.6",
     "eslint-plugin-disable": "^2.0.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -41,7 +43,6 @@
     "mocha": "^8.2.0",
     "nock": "^13.0.5",
     "prettier": "^2.0.5",
-    "ts-node": "^9.0.0",
     "typescript": "^4.0.5"
   }
 }

@@ -1,0 +1,3 @@
+{
+    "response": "[METADATA]\nmodified = 2020-02-27T05:17:00.000Z\n[[VALIDATORS]]\npublic_key = 'nAUcNC5ni7XjVYfCMe38Rm3KQaq27jw7wJpcUYdo4miWwpNePRTw'\nattestation = '27899F1CEDA9DD21FE4603B53795D83C23EBBBB06017C02AC740391D4BDDAF125B343A0B10B35FC30C07E22ACA982C624CF25E388818A1069B857FE49A0FFB0E'\nnetwork = 'main'\nowner_country = 'US'\nserver_country = 'US'\nunl = 'https://vl.ripple.com'\n[[ACCOUNTS]]\naddress = 'rabbitZWLG8PptsrPjuvKX4uAGjS5B64PP'\nnetwork = 'main'\n[[PRINCIPALS]]\nname = 'rabbit'\nemail = 'postmaster@rabbitkick.club'\ntwitter = '@RabbitKickClub'\n'xrpchat.com' = 'Rabbit_Kick_Club'\n[[SERVERS]]\npeer = 'hub.rabbitkick.club'\nnetwork = 'main'\nport = 51235"
+}
