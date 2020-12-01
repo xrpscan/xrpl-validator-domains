@@ -7,11 +7,23 @@ interface Response {
   data: string
 }
 
+interface Validator {
+  public_key: string
+  attestation: string
+}
+
+interface TOML {
+  VALIDATORS?: Validator[]
+}
+
 /**
- * Fetch .toml file from manifest domain
- * @param domain to fetch the .toml file from
+ * Fetch .toml file from manifest domain.
+ *
+ * @param domain - To fetch the .toml file from.
+ * @throws If there is an error fetching .toml file.
+ * @returns Parsed .toml file.
  */
-async function fetchToml(domain: string) {
+async function fetchToml(domain: string): Promise<TOML> {
   const url = `https://${domain}${TOML_PATH}`
 
   return axios({
@@ -19,11 +31,8 @@ async function fetchToml(domain: string) {
     url,
     responseType: 'text',
   })
-    .then((resp: Response) => resp.data)
-    .then((tomlData: string) => toml.parse(tomlData))
-    .catch((error: Error) => console.log(`Error Fetching ${url}: ${error}`))
+    .then(async (resp: Response) => resp.data)
+    .then(async (tomlData: string) => toml.parse(tomlData))
 }
 
-export {
-  fetchToml,
-}
+export default fetchToml
