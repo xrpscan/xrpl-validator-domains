@@ -8,25 +8,12 @@ function getDefaultConfiguration() {
     cache: true,
     performance: { hints: false },
     stats: 'errors-only',
-    externals: [
-      {
-        lodash: '_',
-      },
-    ],
     entry: './dist/index.js',
     output: {
-      library: 'ripple',
+      library: 'verifyDomain',
       path: path.join(__dirname, 'build/'),
-      filename: `ripple-lib.default.js`,
+      filename: `xrpl-validator-domains.default.js`,
     },
-    plugins: [
-      new webpack.NormalModuleReplacementPlugin(/^ws$/, './wswrapper'),
-      new webpack.NormalModuleReplacementPlugin(/^\.\/wallet$/, './wallet-web'),
-      new webpack.NormalModuleReplacementPlugin(
-        /^.*setup-api$/,
-        './setup-api-web',
-      ),
-    ],
     module: {
       rules: [],
     },
@@ -53,13 +40,13 @@ module.exports = [
   function (env, argv) {
     const config = getDefaultConfiguration()
     config.mode = 'development'
-    config.output.filename = `ripple-latest.js`
+    config.output.filename = `xrpl-validator-domains.js`
     return config
   },
   function (env, argv) {
     const config = getDefaultConfiguration()
     config.mode = 'production'
-    config.output.filename = `ripple-latest-min.js`
+    config.output.filename = `xrpl-validator-domains-min.js`
     if (process.argv.includes('--analyze')) {
       config.plugins.push(new BundleAnalyzerPlugin())
     }

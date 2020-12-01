@@ -6,7 +6,7 @@
   "author": "Nathan Nichols",
   "type": "commonjs",
   "license": "MIT",
-  "unpkg": "build/ripple-latest-min.js",
+  "unpkg": "build/xrpl-validator-domains-min.js",
   "scripts": {
     "prepare": "yarn build",
     "test": "mocha -r ts-node/register test/*.test.ts",
