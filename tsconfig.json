@@ -7,7 +7,7 @@
       "sourceMap": true,                        /* Generates corresponding '.map' file. */
   
       /* Directories */
-      "outDir": "./build",                      /* Redirect output structure to the directory. */
+      "outDir": "./dist",                      /* Redirect output structure to the directory. */
   
       /* Strict Type-Checking Options */
       "strict": true,                           /* Enable all strict type-checking options. */
@@ -33,5 +33,5 @@
       "resolveJsonModule": true,                /* Enables importing JSON Files. */
       "experimentalDecorators": true,           /* Enables experimental support for ES7 decorators. */
       "emitDecoratorMetadata": true             /* Enables experimental support for emitting type metadata for decorators. */
-    }
+    },
 }
