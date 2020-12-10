@@ -54,5 +54,9 @@
     "buffer": "^6.0.2",
     "stream-browserify": "^3.0.0",
     "process": "^0.11.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xpring-eng/xrpl-validator-domains.git"
   }
 }

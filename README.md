@@ -1,11 +1,16 @@
 # xrpl-validator-domains
-Verify validator domains in accordance with [domain verification](https://xrpl.org/xrp-ledger-toml.html#domain-verification)
+Verify the domain names of XRP Ledger validators, in accordance with [domain verification](https://xrpl.org/xrp-ledger-toml.html#domain-verification)
 
 ## Usage
-`verifyValidatorDomain` verifies manifest signatures and domains.
+To verify manifest signatures and domains, use the `verifyValidatorDomain()` method.
 
 ## API
-#### NodeJS
+#### Node.js
+Install using `npm` or `yarn`.
+```shell
+npm install xrpl-validator-domains --save
+```
+
 ```js
 import { verifyValidatorDomain, verifyManifestSignature } from 'xrpl-validator-domains'
 ```
@@ -17,7 +22,7 @@ import { verifyValidatorDomain, verifyManifestSignature } from 'xrpl-validator-d
 ```
 
 ### verifyValidatorDomain(manifest)
-Parse and verify a hex-string manifest. Works with the following manifest formats.
+Parse and verify a hex-string manifest. Various manifest formats are supported. The following examples show the supported manifest formats, as well as the structure of the returned object:
 ```js
 > await verifyValidatorDomain("240000007B7121EDA54C85F91219FD259134B6B126AD64AE7204B81DD4052510657E1A5697246AD27321032F7ACF6D67C42C9C898F576F92FE4638EB6C88D0DC7F6710AF00ED6BF50D97D676473045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285770F7261626269746B69636B2E636C7562701240C4FF2A6D277D24DEFB1C1EDF67285171EA02DC035FEF6216DEE41019CE41611AD4430AF59938DC505E538CCF669D521AC2A456C3805FE3CA85BB10B2A691B50B")
 > {
@@ -81,7 +86,7 @@ Parse and verify a hex-string manifest. Works with the following manifest format
 ```
 
 ### verifyManifestSignature(manifest): bool
-Verify a manifest signature. Works with the following manifest formats.
+Verify a manifest signature. Various manifest formats are supported. The following examples show the supported manifest formats:
 
 ```js
 > await verifyManifestSignature("240000007B7121EDA54C85F91219FD259134B6B126AD64AE7204B81DD4052510657E1A5697246AD27321032F7ACF6D67C42C9C898F576F92FE4638EB6C88D0DC7F6710AF00ED6BF50D97D676473045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285770F7261626269746B69636B2E636C7562701240C4FF2A6D277D24DEFB1C1EDF67285171EA02DC035FEF6216DEE41019CE41611AD4430AF59938DC505E538CCF669D521AC2A456C3805FE3CA85BB10B2A691B50B")
@@ -112,7 +117,6 @@ Verify a manifest signature. Works with the following manifest formats.
 ```
 
 #### Testing
-After installing, run
-```
-  yarn test
-```
+To run the tests:
+1. Install dependencies with `yarn install` or `npm install`
+2. Run `yarn test` or `npm test`
