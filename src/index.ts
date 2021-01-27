@@ -103,4 +103,4 @@ async function verifyValidatorDomain(
   }
 }
 
-export { verifyValidatorDomain, verifyManifestSignature }
+export { verifyValidatorDomain, verifyManifestSignature, normalizeManifest }
