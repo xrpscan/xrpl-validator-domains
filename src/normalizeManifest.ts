@@ -19,7 +19,7 @@ export interface ManifestParsed {
   Signature?: string
 }
 
-export interface ManifestRPC {
+export interface StreamManifest {
   master_key: string
   master_signature: string
   seq: number
@@ -109,12 +109,12 @@ function isManifestParsed(param: unknown): param is ManifestParsed {
 }
 
 /**
- * Check that the parameter is a valid ManifestRPC object.
+ * Check that the parameter is a valid StreamManifest object.
  *
- * @param param - Checks if a parameter is a ManifestRPC.
- * @returns Type guard for ManifestRPC.
+ * @param param - Checks if a parameter is a StreamManifest.
+ * @returns Type guard for StreamManifest.
  */
-function isManifestRPC(param: unknown): param is ManifestRPC {
+function isStreamManifest(param: unknown): param is StreamManifest {
   if (!isObject(param)) {
     return false
   }
@@ -212,24 +212,24 @@ function normalizeManifestParsed(parsed: ManifestParsed): Manifest {
 }
 
 /**
- * Normalizes a ManifestRPC to a Manifest.
+ * Normalizes a StreamManifest to a Manifest.
  *
- * @param rpc - Manifest in ManifestRPC format.
+ * @param rpc - Manifest in StreamManifest format.
  * @returns Normalized Manifest representation.
  */
-function normalizeManifestRPC(rpc: ManifestRPC): Manifest {
+function normalizeStreamManifest(rpc: StreamManifest): Manifest {
   return rpc as Manifest
 }
 
 /**
  * Normalizes a manifest to a Manifest object.
  *
- * @param manifest - Hex-string, ManifestRPC, or ManifestParsed representation of a manifest.
+ * @param manifest - Hex-string, StreamManifest, or ManifestParsed representation of a manifest.
  * @throws When manifest format is unrecognized.
  * @returns A normalized Manifest object.
  */
 export function normalizeManifest(
-  manifest: string | ManifestParsed | ManifestRPC | Manifest,
+  manifest: string | ManifestParsed | StreamManifest | Manifest,
 ): Manifest {
   if (isManifest(manifest)) {
     return manifest
@@ -250,8 +250,8 @@ export function normalizeManifest(
     return normalizeManifestParsed(parsed)
   }
 
-  if (isManifestRPC(parsed)) {
-    return normalizeManifestRPC(parsed)
+  if (isStreamManifest(parsed)) {
+    return normalizeStreamManifest(parsed)
   }
 
   throw new Error(`Unrecognized Manifest format ${JSON.stringify(manifest)}`)
