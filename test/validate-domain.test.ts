@@ -35,7 +35,7 @@ const rabbitKickManifestResponse = {
   seq: 123,
   domain: 'rabbitkick.club',
   master_key: 'nHUcNC5ni7XjVYfCMe38Rm3KQaq27jw7wJpcUYdo4miWwpNePRTw',
-  ephemeral_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
+  signing_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
   signature:
     '3045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285',
   master_signature:
@@ -68,7 +68,7 @@ const mayursManifestResponse = {
   seq: 2,
   domain: 'payid.mayurbhandary.com',
   master_key: 'nHBd6ZRXfG353vtK1kwCahqbMk6BAqUz57rVy77Do5YTBG8LHkye',
-  ephemeral_key: 'n9KqxB1nyphLfQnj8YBWtwt9ekhM58QQR3UWG3bRFKofSvBUDhXu',
+  signing_key: 'n9KqxB1nyphLfQnj8YBWtwt9ekhM58QQR3UWG3bRFKofSvBUDhXu',
   signature:
     '3045022100A887F4C261786803AD033839FB52272E1123A57DFF48C07C06616D2028A4CC0502203F3325B1635864EBBFE44991910D66836F66FC00E14E965AB0F5352AD97816FF',
   master_signature:
@@ -99,7 +99,7 @@ const noDomainRpcResponse = {
 const noDomainResponseManifest = {
   seq: 1,
   master_key: 'nHU2Y1mLGDvTbc2dpvpkQ16qdeTKv2aJwGJHFySSB9U3jkTmj4CA',
-  ephemeral_key: 'n9K2FpCqZftM1xXXaWXFPVbEimLX6MEjrmQywfSutkdK1PRvqDb2',
+  signing_key: 'n9K2FpCqZftM1xXXaWXFPVbEimLX6MEjrmQywfSutkdK1PRvqDb2',
   signature:
     '3045022100D7CF0CB64FE3B6825B0B799019E9EF906EB82829F5CE017C93DDEBA4850B0EB5022009BDE801BEF3C8ADE73E5CE4B32917E2E6EB975B1B65F44CABD9A3C1617BDB44',
   master_signature:
@@ -200,7 +200,7 @@ describe('Verifies domains', () => {
       message: 'Cannot verify manifest signature',
       manifest: {
         domain: 'rabbitkick.club',
-        ephemeral_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
+        signing_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
         master_key: 'nHUcNC5ni7XjVYfCMe38Rm3KQaq27jw7wJpcUYdo4miWwpNePRTw',
         master_signature: '11223344556677889900aabbccddeeff',
         seq: 123,

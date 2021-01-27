@@ -40,7 +40,7 @@ function verifyManifestSignature(
   const signed: SigningManifest = {
     Domain: normalized.domain,
     PublicKey: normalized.master_key,
-    SigningPubKey: normalized.ephemeral_key,
+    SigningPubKey: normalized.signing_key,
     Sequence: normalized.seq,
   }
 

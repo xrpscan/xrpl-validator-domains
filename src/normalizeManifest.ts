@@ -6,7 +6,7 @@ export interface Manifest {
   master_signature: string
   seq: number
   domain?: string
-  ephemeral_key?: string
+  signing_key?: string
   signature?: string
 }
 
@@ -54,7 +54,7 @@ function isManifest(param: unknown): param is Manifest {
     'master_key',
     'master_signature',
     'domain',
-    'ephemeral_key',
+    'signing_key',
     'signature',
   ]
   const extra_keys = Object.keys(param).filter(
@@ -67,8 +67,8 @@ function isManifest(param: unknown): param is Manifest {
     typeof param.master_key === 'string' &&
     typeof param.master_signature === 'string' &&
     (param.domain === undefined || typeof param.domain === 'string') &&
-    (param.ephemeral_key === undefined ||
-      typeof param.ephemeral_key === 'string') &&
+    (param.signing_key === undefined ||
+      typeof param.signing_key === 'string') &&
     (param.signature === undefined || typeof param.signature === 'string')
   )
 }
@@ -205,7 +205,7 @@ function normalizeManifestParsed(parsed: ManifestParsed): Manifest {
   }
 
   if (parsed.SigningPubKey) {
-    result.ephemeral_key = parsed.SigningPubKey
+    result.signing_key = parsed.SigningPubKey
   }
 
   return result
@@ -218,17 +218,7 @@ function normalizeManifestParsed(parsed: ManifestParsed): Manifest {
  * @returns Normalized Manifest representation.
  */
 function normalizeManifestRPC(rpc: ManifestRPC): Manifest {
-  if (!rpc.signing_key) {
-    return rpc
-  }
-
-  const manifest = { ...rpc }
-  const ephemeral_key = manifest.signing_key
-  delete manifest.signing_key
-
-  const normalized = manifest as Manifest
-  normalized.ephemeral_key = ephemeral_key
-  return normalized
+  return rpc as Manifest
 }
 
 /**
