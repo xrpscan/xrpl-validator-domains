@@ -26,6 +26,7 @@ export interface StreamManifest {
   domain?: string
   signing_key?: string
   signature?: string
+  type: string
 }
 
 /**
@@ -218,7 +219,8 @@ function normalizeManifestParsed(parsed: ManifestParsed): Manifest {
  * @returns Normalized Manifest representation.
  */
 function normalizeStreamManifest(rpc: StreamManifest): Manifest {
-  return rpc as Manifest
+  const { type, ...manifest } = rpc
+  return manifest
 }
 
 /**
