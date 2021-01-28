@@ -69,7 +69,8 @@ Parse and verify a hex-string manifest. Various manifest formats are supported. 
     master_key: "nHBd6ZRXfG353vtK1kwCahqbMk6BAqUz57rVy77Do5YTBG8LHkye",
     signing_key: "n9KqxB1nyphLfQnj8YBWtwt9ekhM58QQR3UWG3bRFKofSvBUDhXu",
     signature: "3045022100A887F4C261786803AD033839FB52272E1123A57DFF48C07C06616D2028A4CC0502203F3325B1635864EBBFE44991910D66836F66FC00E14E965AB0F5352AD97816FF",
-    master_signature: "1234567890ABCDEF"
+    master_signature: "1234567890ABCDEF",
+    type: "manifestReceived"
 })
 > {
   verified: false,

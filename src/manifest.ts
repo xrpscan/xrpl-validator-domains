@@ -5,7 +5,7 @@ import { verify } from 'ripple-keypairs'
 import {
   Manifest,
   ManifestParsed,
-  ManifestRPC,
+  StreamManifest,
   normalizeManifest,
 } from './normalizeManifest'
 
@@ -26,7 +26,7 @@ interface SigningManifest {
  * @returns True if the manifest signature is valid.
  */
 function verifyManifestSignature(
-  manifest: string | ManifestRPC | ManifestParsed | Manifest,
+  manifest: string | StreamManifest | ManifestParsed | Manifest,
 ): boolean {
   const normalized = normalizeManifest(manifest)
 
@@ -40,7 +40,7 @@ function verifyManifestSignature(
   const signed: SigningManifest = {
     Domain: normalized.domain,
     PublicKey: normalized.master_key,
-    SigningPubKey: normalized.ephemeral_key,
+    SigningPubKey: normalized.signing_key,
     Sequence: normalized.seq,
   }
 

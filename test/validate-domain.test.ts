@@ -21,7 +21,7 @@ const rabbitKickParsed = {
   MasterSignature:
     'C4FF2A6D277D24DEFB1C1EDF67285171EA02DC035FEF6216DEE41019CE41611AD4430AF59938DC505E538CCF669D521AC2A456C3805FE3CA85BB10B2A691B50B',
 }
-const rabbitKickRpcResponse = {
+const rabbitKickStreamManifest = {
   seq: 123,
   domain: 'rabbitkick.club',
   master_key: 'nHUcNC5ni7XjVYfCMe38Rm3KQaq27jw7wJpcUYdo4miWwpNePRTw',
@@ -30,12 +30,13 @@ const rabbitKickRpcResponse = {
     '3045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285',
   master_signature:
     'C4FF2A6D277D24DEFB1C1EDF67285171EA02DC035FEF6216DEE41019CE41611AD4430AF59938DC505E538CCF669D521AC2A456C3805FE3CA85BB10B2A691B50B',
+  type: 'manifestReceived',
 }
 const rabbitKickManifestResponse = {
   seq: 123,
   domain: 'rabbitkick.club',
   master_key: 'nHUcNC5ni7XjVYfCMe38Rm3KQaq27jw7wJpcUYdo4miWwpNePRTw',
-  ephemeral_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
+  signing_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
   signature:
     '3045022100BE0B2E6071AED53C19A76BDC6EDE1A351C35343AA7CF917587F93C9D85C5A7B702207135F72654DC3AD70FE8A4DEB128965268A312DFB3E9A7C68BA8E9A8931F4285',
   master_signature:
@@ -54,7 +55,7 @@ const mayursParsed = {
   MasterSignature:
     '70AF72795E290EC997D0DDCE5180F260FD013BE75A3C57924829599D53F14CB071F090E76428BA77A43C3530CBA8BA72CF1AC59EEF9A352E9EA4B8334703EB0E',
 }
-const mayursRpcResponse = {
+const mayursStreamManifest = {
   seq: 2,
   domain: 'payid.mayurbhandary.com',
   master_key: 'nHBd6ZRXfG353vtK1kwCahqbMk6BAqUz57rVy77Do5YTBG8LHkye',
@@ -63,12 +64,13 @@ const mayursRpcResponse = {
     '3045022100A887F4C261786803AD033839FB52272E1123A57DFF48C07C06616D2028A4CC0502203F3325B1635864EBBFE44991910D66836F66FC00E14E965AB0F5352AD97816FF',
   master_signature:
     '70AF72795E290EC997D0DDCE5180F260FD013BE75A3C57924829599D53F14CB071F090E76428BA77A43C3530CBA8BA72CF1AC59EEF9A352E9EA4B8334703EB0E',
+  type: 'manifestReceived',
 }
 const mayursManifestResponse = {
   seq: 2,
   domain: 'payid.mayurbhandary.com',
   master_key: 'nHBd6ZRXfG353vtK1kwCahqbMk6BAqUz57rVy77Do5YTBG8LHkye',
-  ephemeral_key: 'n9KqxB1nyphLfQnj8YBWtwt9ekhM58QQR3UWG3bRFKofSvBUDhXu',
+  signing_key: 'n9KqxB1nyphLfQnj8YBWtwt9ekhM58QQR3UWG3bRFKofSvBUDhXu',
   signature:
     '3045022100A887F4C261786803AD033839FB52272E1123A57DFF48C07C06616D2028A4CC0502203F3325B1635864EBBFE44991910D66836F66FC00E14E965AB0F5352AD97816FF',
   master_signature:
@@ -87,7 +89,7 @@ const noDomainParsed = {
   MasterSignature:
     'C50B604A3B6DE45FA140A78E4D6C4D8C98F75B4B2062E09E76965E1526F34FB3B392067A093CAA28CA02D04E32E042EF59400782A125CF9D076AE930E15CE60C',
 }
-const noDomainRpcResponse = {
+const noDomainStreamManifest = {
   seq: 1,
   master_key: 'nHU2Y1mLGDvTbc2dpvpkQ16qdeTKv2aJwGJHFySSB9U3jkTmj4CA',
   signing_key: 'n9K2FpCqZftM1xXXaWXFPVbEimLX6MEjrmQywfSutkdK1PRvqDb2',
@@ -95,11 +97,12 @@ const noDomainRpcResponse = {
     '3045022100D7CF0CB64FE3B6825B0B799019E9EF906EB82829F5CE017C93DDEBA4850B0EB5022009BDE801BEF3C8ADE73E5CE4B32917E2E6EB975B1B65F44CABD9A3C1617BDB44',
   master_signature:
     'C50B604A3B6DE45FA140A78E4D6C4D8C98F75B4B2062E09E76965E1526F34FB3B392067A093CAA28CA02D04E32E042EF59400782A125CF9D076AE930E15CE60C',
+  type: 'manifestReceived',
 }
 const noDomainResponseManifest = {
   seq: 1,
   master_key: 'nHU2Y1mLGDvTbc2dpvpkQ16qdeTKv2aJwGJHFySSB9U3jkTmj4CA',
-  ephemeral_key: 'n9K2FpCqZftM1xXXaWXFPVbEimLX6MEjrmQywfSutkdK1PRvqDb2',
+  signing_key: 'n9K2FpCqZftM1xXXaWXFPVbEimLX6MEjrmQywfSutkdK1PRvqDb2',
   signature:
     '3045022100D7CF0CB64FE3B6825B0B799019E9EF906EB82829F5CE017C93DDEBA4850B0EB5022009BDE801BEF3C8ADE73E5CE4B32917E2E6EB975B1B65F44CABD9A3C1617BDB44',
   master_signature:
@@ -132,7 +135,7 @@ describe('Verifies domains', () => {
       .get('/.well-known/xrp-ledger.toml')
       .reply(200, rabbitKickResponse.response)
 
-    expect(await verifyValidatorDomain(rabbitKickRpcResponse)).to.eql({
+    expect(await verifyValidatorDomain(rabbitKickStreamManifest)).to.eql({
       verified: true,
       message: 'rabbitkick.club has been verified',
       manifest: rabbitKickManifestResponse,
@@ -163,7 +166,7 @@ describe('Verifies domains', () => {
       .get('/.well-known/xrp-ledger.toml')
       .reply(200, payIdMayurResponse.response)
 
-    expect(await verifyValidatorDomain(mayursRpcResponse)).to.eql({
+    expect(await verifyValidatorDomain(mayursStreamManifest)).to.eql({
       verified: true,
       message: 'payid.mayurbhandary.com has been verified',
       manifest: mayursManifestResponse,
@@ -183,7 +186,7 @@ describe('Verifies domains', () => {
       manifest: noDomainResponseManifest,
     })
 
-    expect(await verifyValidatorDomain(noDomainRpcResponse)).to.eql({
+    expect(await verifyValidatorDomain(noDomainStreamManifest)).to.eql({
       verified: false,
       message: 'Manifest does not contain a domain',
       manifest: noDomainResponseManifest,
@@ -200,7 +203,7 @@ describe('Verifies domains', () => {
       message: 'Cannot verify manifest signature',
       manifest: {
         domain: 'rabbitkick.club',
-        ephemeral_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
+        signing_key: 'n9Li9iXepgXECvTFq2hGoxqSttJy9rrC1NbZ75NXLZyKFekV5ZU1',
         master_key: 'nHUcNC5ni7XjVYfCMe38Rm3KQaq27jw7wJpcUYdo4miWwpNePRTw',
         master_signature: '11223344556677889900aabbccddeeff',
         seq: 123,

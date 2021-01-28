@@ -6,7 +6,7 @@ import fetchToml from './network'
 import {
   normalizeManifest,
   ManifestParsed,
-  ManifestRPC,
+  StreamManifest,
   Manifest,
 } from './normalizeManifest'
 
@@ -22,7 +22,7 @@ interface Validator {
  * @returns A verified, message, and the verified manifest.
  */
 async function verifyValidatorDomain(
-  manifest: string | ManifestParsed | ManifestRPC,
+  manifest: string | ManifestParsed | StreamManifest,
 ): Promise<{
   verified: boolean
   message: string
@@ -103,4 +103,11 @@ async function verifyValidatorDomain(
   }
 }
 
-export { verifyValidatorDomain, verifyManifestSignature }
+export {
+  verifyValidatorDomain,
+  verifyManifestSignature,
+  normalizeManifest,
+  Manifest,
+  StreamManifest,
+  ManifestParsed,
+}
