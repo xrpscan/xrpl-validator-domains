@@ -20,6 +20,7 @@ export interface ManifestParsed {
 }
 
 export interface StreamManifest {
+  manifest?: string
   master_key: string
   master_signature: string
   seq: number
@@ -121,6 +122,7 @@ function isStreamManifest(param: unknown): param is StreamManifest {
   }
 
   const expected_keys = [
+    'manifest',
     'seq',
     'master_key',
     'master_signature',
@@ -219,8 +221,8 @@ function normalizeManifestParsed(parsed: ManifestParsed): Manifest {
  * @returns Normalized Manifest representation.
  */
 function normalizeStreamManifest(rpc: StreamManifest): Manifest {
-  const { type, ...manifest } = rpc
-  return manifest
+  const { type, manifest, ...remaining } = rpc
+  return remaining
 }
 
 /**
